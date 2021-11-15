@@ -7,14 +7,14 @@ const { forbidden, articleNotFound } = require('../utils/constants');
 
 module.exports.getArticles = (req, res, next) => {
   Article.find({})
-    .then((articles) => res.status(200).send({ articles }))
+    .then((articles) => res.status(200).send(articles))
     .catch(next);
 };
 
 module.exports.createArticle = (req, res, next) => {
-  const { keyword, title, text, date, source, link, image } = req.body;
+  const { keyword, title, description, publishedAt, source, url, urlToImage } = req.body;
 
-  Article.create({ keyword, title, text, date, source, link, image, owner: req.user._id })
+  Article.create({ keyword, title, description, publishedAt, source, url, urlToImage, owner: req.user._id })
     .then((article) => res.status(200).send({ article }))
     .catch(next);
 };
